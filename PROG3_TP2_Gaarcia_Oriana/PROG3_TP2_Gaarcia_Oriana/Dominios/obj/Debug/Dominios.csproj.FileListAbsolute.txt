@@ -1,0 +1,9 @@
+C:\Users\ORIANAG\source\repos\PROG3_TP2_Gaarcia_Oriana\Dominios\bin\Debug\Dominios.exe.config
+C:\Users\ORIANAG\source\repos\PROG3_TP2_Gaarcia_Oriana\Dominios\bin\Debug\Dominios.exe
+C:\Users\ORIANAG\source\repos\PROG3_TP2_Gaarcia_Oriana\Dominios\bin\Debug\Dominios.pdb
+C:\Users\ORIANAG\source\repos\PROG3_TP2_Gaarcia_Oriana\Dominios\obj\Debug\Dominios.Properties.Resources.resources
+C:\Users\ORIANAG\source\repos\PROG3_TP2_Gaarcia_Oriana\Dominios\obj\Debug\Dominios.csproj.GenerateResource.cache
+C:\Users\ORIANAG\source\repos\PROG3_TP2_Gaarcia_Oriana\Dominios\obj\Debug\Dominios.csproj.CoreCompileInputs.cache
+C:\Users\ORIANAG\source\repos\PROG3_TP2_Gaarcia_Oriana\Dominios\obj\Debug\Dominios.exe
+C:\Users\ORIANAG\source\repos\PROG3_TP2_Gaarcia_Oriana\Dominios\obj\Debug\Dominios.pdb
+C:\Users\ORIANAG\source\repos\PROG3_TP2_Gaarcia_Oriana\Dominios\obj\Debug\Dominios.csprojAssemblyReference.cache
