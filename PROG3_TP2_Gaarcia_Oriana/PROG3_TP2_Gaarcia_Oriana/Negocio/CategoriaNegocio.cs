@@ -12,24 +12,18 @@ namespace Negocio
     {
         public List<Categoria> Listado()
         {
-            SqlCommand Comando = new SqlCommand();
-            SqlConnection Conexion = new SqlConnection();
-            SqlDataReader Lector;
+            AccesoDatos datos = new AccesoDatos();
             Categoria aux;
             List<Categoria> lista = new List<Categoria>();
             try
             {
-                Conexion.ConnectionString = "data source=LENOVO-PC\\SQLEXPRESS; initial catalog=CATALOGO_DB; integrated security=sspi";
-                Comando.CommandType = System.Data.CommandType.Text;
-                Comando.CommandText = " select Id, Descripcion from CATEGORIAS";
-                Comando.Connection = Conexion;
-                Conexion.Open();
-                Lector = Comando.ExecuteReader();
+                datos.setearQuery( " select Id, Descripcion from CATEGORIAS");
+                datos.ejecutarLector();
 
 
-                while (Lector.Read())
+                while (datos.lector.Read())
                 {
-                    aux = new Categoria((int)Lector["Id"], (string)Lector["Descripcion"]);
+                    aux = new Categoria((int)datos.lector["Id"], (string)datos.lector["Descripcion"]);
                     lista.Add(aux);
                 }
                 return lista;
@@ -40,7 +34,7 @@ namespace Negocio
             }
             finally
             {
-                Conexion.Close();
+                datos.cerrarConexion();
             }
 
 

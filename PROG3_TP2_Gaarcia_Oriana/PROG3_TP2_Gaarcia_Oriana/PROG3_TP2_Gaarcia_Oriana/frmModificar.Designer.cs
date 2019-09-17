@@ -43,6 +43,7 @@
             this.btnModificar = new System.Windows.Forms.Button();
             this.btnBuscar = new System.Windows.Forms.Button();
             this.txbID = new System.Windows.Forms.TextBox();
+            this.btnListado = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -149,7 +150,7 @@
             // 
             // btnModificar
             // 
-            this.btnModificar.Location = new System.Drawing.Point(486, 340);
+            this.btnModificar.Location = new System.Drawing.Point(476, 340);
             this.btnModificar.Name = "btnModificar";
             this.btnModificar.Size = new System.Drawing.Size(75, 23);
             this.btnModificar.TabIndex = 17;
@@ -175,11 +176,22 @@
             this.txbID.TabIndex = 19;
             this.txbID.Visible = false;
             // 
+            // btnListado
+            // 
+            this.btnListado.Location = new System.Drawing.Point(476, 90);
+            this.btnListado.Name = "btnListado";
+            this.btnListado.Size = new System.Drawing.Size(75, 39);
+            this.btnListado.TabIndex = 20;
+            this.btnListado.Text = "Listado de Articulos";
+            this.btnListado.UseVisualStyleBackColor = true;
+            this.btnListado.Click += new System.EventHandler(this.BtnListado_Click);
+            // 
             // frmModificar
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.btnListado);
             this.Controls.Add(this.txbID);
             this.Controls.Add(this.btnBuscar);
             this.Controls.Add(this.btnModificar);
@@ -220,5 +232,6 @@
         private System.Windows.Forms.Button btnModificar;
         private System.Windows.Forms.Button btnBuscar;
         private System.Windows.Forms.TextBox txbID;
+        private System.Windows.Forms.Button btnListado;
     }
 }

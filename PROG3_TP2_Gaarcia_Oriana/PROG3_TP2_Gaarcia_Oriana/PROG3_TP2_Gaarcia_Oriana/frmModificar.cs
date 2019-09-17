@@ -14,6 +14,7 @@ namespace PROG3_TP2_Gaarcia_Oriana
 {
     public partial class frmModificar : Form
     {
+        Articulo Auxiliar;
         public frmModificar()
         {
             InitializeComponent();
@@ -33,6 +34,7 @@ namespace PROG3_TP2_Gaarcia_Oriana
                 if (txbCodigo.TextLength > 0)
                 {
                     lista = negocio.Buscar(txbCodigo.Text);
+                    Auxiliar = lista[0];
                     txbID.Text = lista[0].id.ToString();
                     txbDesc.Text = lista[0].descripcion;
                     txbNombre.Text = lista[0].nombre;
@@ -84,11 +86,12 @@ namespace PROG3_TP2_Gaarcia_Oriana
             List < Articulo > lista = new List<Articulo>();
             try
             {
-                lista = negocio.Buscar(txbCodigo.Text);
+                lista = negocio.Buscar(Auxiliar.codigo);
                 articulo = lista[0];
                 articulo.codigo = txbCodigo.Text;
+                articulo.nombre = txbNombre.Text;
                 articulo.descripcion = txbDesc.Text;
-                articulo.categoriaProducto =(Categoria)cboCategoria.SelectedItem;
+                articulo.categoriaProducto = (Categoria)cboCategoria.SelectedItem;
                 articulo.marcaProducto = (Marca)cboMarca.SelectedItem;
                 articulo.precio = decimal.Parse(txbPrecio.Text);
                 negocio.Modificar(articulo);
@@ -101,6 +104,12 @@ namespace PROG3_TP2_Gaarcia_Oriana
                 MessageBox.Show(ex.ToString());
             }
 
+        }
+
+        private void BtnListado_Click(object sender, EventArgs e)
+        {
+            Form formulario = new frmListado();
+            formulario.ShowDialog();
         }
     }
 }

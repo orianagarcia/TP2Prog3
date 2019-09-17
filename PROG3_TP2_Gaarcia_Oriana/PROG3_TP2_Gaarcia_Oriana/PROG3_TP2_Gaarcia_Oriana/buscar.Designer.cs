@@ -57,8 +57,10 @@
             this.dgvBuscarDatos.AllowUserToDeleteRows = false;
             this.dgvBuscarDatos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvBuscarDatos.Location = new System.Drawing.Point(35, 66);
+            this.dgvBuscarDatos.MultiSelect = false;
             this.dgvBuscarDatos.Name = "dgvBuscarDatos";
             this.dgvBuscarDatos.ReadOnly = true;
+            this.dgvBuscarDatos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvBuscarDatos.Size = new System.Drawing.Size(737, 264);
             this.dgvBuscarDatos.TabIndex = 2;
             // 

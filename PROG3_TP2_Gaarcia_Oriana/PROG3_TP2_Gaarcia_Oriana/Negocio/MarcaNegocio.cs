@@ -13,23 +13,17 @@ namespace Negocio
     {
         public List<Marca> Listado ()
         {
-            SqlCommand Comando = new SqlCommand();
-            SqlConnection Conexion = new SqlConnection();
-            SqlDataReader Lector;
+            AccesoDatos datos = new AccesoDatos();
             Marca aux;
             List<Marca> lista = new List<Marca>();
             try
             {
-                Conexion.ConnectionString = "data source=LENOVO-PC\\SQLEXPRESS; initial catalog=CATALOGO_DB; integrated security=sspi";
-                Comando.CommandType = System.Data.CommandType.Text;
-                Comando.CommandText = " select Id, Descripcion from MARCAS";
-                Comando.Connection = Conexion;
-                Conexion.Open();
-                 Lector = Comando.ExecuteReader();
+                datos.setearQuery( " select Id, Descripcion from MARCAS");
+                datos.ejecutarLector();
 
-                while (Lector.Read())
+                while (datos.lector.Read())
                 {
-                    aux = new Marca((int)Lector["Id"], (string)Lector["Descripcion"]);
+                    aux = new Marca((int)datos.lector["Id"], (string)datos.lector["Descripcion"]);
                     lista.Add(aux);
                 }
                 return lista; 
@@ -41,8 +35,7 @@ namespace Negocio
             }
             finally 
                 {
-                Conexion.Close(); 
-                }
+                datos.cerrarConexion();                }
 
 
         }

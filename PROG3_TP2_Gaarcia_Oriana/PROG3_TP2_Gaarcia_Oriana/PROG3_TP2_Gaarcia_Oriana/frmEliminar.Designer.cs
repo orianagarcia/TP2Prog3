@@ -42,6 +42,7 @@
             this.btnEliminar = new System.Windows.Forms.Button();
             this.txbDesc = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
+            this.btnArticulos = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // txbCodigo
@@ -110,6 +111,7 @@
             // 
             // txbPrecio
             // 
+            this.txbPrecio.Enabled = false;
             this.txbPrecio.Location = new System.Drawing.Point(185, 362);
             this.txbPrecio.Multiline = true;
             this.txbPrecio.Name = "txbPrecio";
@@ -118,6 +120,7 @@
             // 
             // txbCategoria
             // 
+            this.txbCategoria.Enabled = false;
             this.txbCategoria.Location = new System.Drawing.Point(185, 240);
             this.txbCategoria.Multiline = true;
             this.txbCategoria.Name = "txbCategoria";
@@ -126,6 +129,7 @@
             // 
             // txbMarca
             // 
+            this.txbMarca.Enabled = false;
             this.txbMarca.Location = new System.Drawing.Point(185, 182);
             this.txbMarca.Multiline = true;
             this.txbMarca.Name = "txbMarca";
@@ -134,6 +138,7 @@
             // 
             // txbNombre
             // 
+            this.txbNombre.Enabled = false;
             this.txbNombre.Location = new System.Drawing.Point(185, 109);
             this.txbNombre.Multiline = true;
             this.txbNombre.Name = "txbNombre";
@@ -152,6 +157,7 @@
             // 
             // txbDesc
             // 
+            this.txbDesc.Enabled = false;
             this.txbDesc.Location = new System.Drawing.Point(185, 280);
             this.txbDesc.Multiline = true;
             this.txbDesc.Name = "txbDesc";
@@ -167,11 +173,22 @@
             this.label6.TabIndex = 14;
             this.label6.Text = "Descripcion";
             // 
+            // btnArticulos
+            // 
+            this.btnArticulos.Location = new System.Drawing.Point(404, 99);
+            this.btnArticulos.Name = "btnArticulos";
+            this.btnArticulos.Size = new System.Drawing.Size(75, 39);
+            this.btnArticulos.TabIndex = 15;
+            this.btnArticulos.Text = "Listado de Articulos";
+            this.btnArticulos.UseVisualStyleBackColor = true;
+            this.btnArticulos.Click += new System.EventHandler(this.BtnArticulos_Click);
+            // 
             // frmEliminar
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.btnArticulos);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.txbDesc);
             this.Controls.Add(this.btnEliminar);
@@ -209,5 +226,6 @@
         private System.Windows.Forms.Button btnEliminar;
         private System.Windows.Forms.TextBox txbDesc;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Button btnArticulos;
     }
 }

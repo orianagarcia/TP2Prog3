@@ -28,6 +28,7 @@ namespace PROG3_TP2_Gaarcia_Oriana
                 dgvBuscarDatos.DataSource = negocio.Buscar(txbBusqueda.Text);
                 dgvBuscarDatos.Columns[0].Visible = false;
                 dgvBuscarDatos.Columns[4].Visible = false;
+                dgvBuscarDatos.Columns[8].Visible = false;
             }
             catch (Exception ex)
             {

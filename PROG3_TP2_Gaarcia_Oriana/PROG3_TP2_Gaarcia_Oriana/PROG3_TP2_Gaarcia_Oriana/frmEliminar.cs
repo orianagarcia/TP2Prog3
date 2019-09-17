@@ -67,5 +67,11 @@ namespace PROG3_TP2_Gaarcia_Oriana
             MessageBox.Show("El articulo se ha eliminado.");
             Dispose();
         }
+
+        private void BtnArticulos_Click(object sender, EventArgs e)
+        {
+            Form formulario = new frmListado();
+            formulario.ShowDialog();
+        }
     }
 }

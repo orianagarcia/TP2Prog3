@@ -13,31 +13,24 @@ namespace Negocio
             List<Articulo> lista = new List<Articulo>();
             Articulo aux;
 
-            SqlCommand comando = new SqlCommand();
-            SqlConnection conexion = new SqlConnection();
-            SqlDataReader lector;
+            AccesoDatos datos = new AccesoDatos();
 
             try
             {
-                conexion.ConnectionString = "data source=LENOVO-PC\\SQLEXPRESS; initial catalog=CATALOGO_DB; integrated security=sspi";
-                comando.CommandType = System.Data.CommandType.Text;
-                comando.CommandText = "Select Codigo, Nombre,articulos.Descripcion, Precio, MARCAS.Descripcion as 'Marca', CATEGORIAS.Descripcion as 'Categoria' From ARTICULOS inner join MARCAS on ARTICULOS.IdMarca=MARCAS.Id inner join CATEGORIAS on ARTICULOS.IdCategoria=CATEGORIAS.Id";
-                comando.Connection = conexion;
+                datos.setearQuery("Select Codigo, Nombre,articulos.Descripcion, Precio, MARCAS.Descripcion as 'Marca', CATEGORIAS.Descripcion as 'Categoria' From ARTICULOS inner join MARCAS on ARTICULOS.IdMarca=MARCAS.Id inner join CATEGORIAS on ARTICULOS.IdCategoria=CATEGORIAS.Id where estado = 1;");
+                datos.ejecutarLector();
 
-                conexion.Open();
-                lector = comando.ExecuteReader();
-                
-                while (lector.Read())
+                while (datos.lector.Read())
                 {
                     aux = new Articulo();
-                    aux.codigo = lector.GetString(0);
-                    aux.nombre = lector.GetString(1);
-                    aux.descripcion = lector.GetString(2);
-                    aux.precio = lector.GetDecimal(3);
+                    aux.codigo = datos.lector.GetString(0);
+                    aux.nombre = datos.lector.GetString(1);
+                    aux.descripcion = datos.lector.GetString(2);
+                    aux.precio = datos.lector.GetDecimal(3);
                     aux.marcaProducto = new Marca();
-                    aux.marcaProducto.nombre = lector.GetString(4);
+                    aux.marcaProducto.nombre = datos.lector.GetString(4);
                     aux.categoriaProducto = new Categoria();
-                    aux.categoriaProducto.nombre = lector.GetString(5);
+                    aux.categoriaProducto.nombre = datos.lector.GetString(5);
 
                     lista.Add(aux);
                 }
@@ -50,33 +43,28 @@ namespace Negocio
             }
             finally
             {
-                conexion.Close();
+                datos.cerrarConexion();
             }
         }
 
         public void agregar(Articulo aux)
         {
-            SqlCommand comando = new SqlCommand();
-            SqlConnection conexion = new SqlConnection();
+            AccesoDatos datos = new AccesoDatos();
+
 
             try
             {
-                conexion.ConnectionString = "data source=LENOVO-PC\\SQLEXPRESS; initial catalog=CATALOGO_DB; integrated security=sspi";
-                comando.CommandType = System.Data.CommandType.Text;
-                comando.Connection = conexion;
-                comando.CommandText = "Insert into ARTICULOS values ( @codigo,@nombre,  @desc , @marca, @categoria, 'Ruta imagen', @precio, @estado)";
-                comando.Parameters.Clear();
-                comando.Parameters.AddWithValue("@codigo", aux.codigo);
-                comando.Parameters.AddWithValue("@nombre", aux.nombre);
-                comando.Parameters.AddWithValue("@desc", aux.descripcion);
-                comando.Parameters.AddWithValue("@marca", aux.marcaProducto.id);
-                comando.Parameters.AddWithValue("@categoria", aux.categoriaProducto.id);
-                comando.Parameters.AddWithValue("@precio", aux.precio);
-                comando.Parameters.AddWithValue("@estado", true);
-
-                comando.Connection = conexion;
-                conexion.Open();
-                comando.ExecuteNonQuery();
+                
+                datos.setearQuery("Insert into ARTICULOS values ( @codigo,@nombre,  @desc , @marca, @categoria, 'Ruta imagen', @precio, @estado)");
+                datos.Clear();
+                datos.agregarParametro("@codigo", aux.codigo);
+                datos.agregarParametro("@nombre", aux.nombre);
+                datos.agregarParametro("@desc", aux.descripcion);
+                datos.agregarParametro("@marca", aux.marcaProducto.id);
+                datos.agregarParametro("@categoria", aux.categoriaProducto.id);
+                datos.agregarParametro("@precio", aux.precio);
+                datos.agregarParametro("@estado", true);
+                datos.ejecutarAccion();
 
             }
             catch (Exception ex)
@@ -85,7 +73,7 @@ namespace Negocio
             }
             finally
             {
-                conexion.Close();
+                datos.cerrarConexion();
             }
         }
         public List<Articulo> Buscar(string codigo)
@@ -93,31 +81,26 @@ namespace Negocio
             List<Articulo> lista = new List<Articulo>();
             Articulo aux;
 
-            SqlCommand comando = new SqlCommand();
-            SqlConnection conexion = new SqlConnection();
-            SqlDataReader lector;
+            AccesoDatos datos = new AccesoDatos();
+
 
             try
             {
-                conexion.ConnectionString = "data source=LENOVO-PC\\SQLEXPRESS; initial catalog=CATALOGO_DB; integrated security=sspi";
-                comando.CommandType = System.Data.CommandType.Text;
-                comando.CommandText = "select articulos.id, Codigo, Nombre,articulos.Descripcion, Precio, MARCAS.Descripcion as 'Marca', CATEGORIAS.Descripcion as 'Categoria' From ARTICULOS  inner join MARCAS on ARTICULOS.IdMarca=MARCAS.Id inner join CATEGORIAS on ARTICULOS.IdCategoria=CATEGORIAS.Id where articulos.codigo= '" + codigo+"'";
-                comando.Connection = conexion;
-                conexion.Open();
-                lector = comando.ExecuteReader();
+                datos.setearQuery("select articulos.id, Codigo, Nombre,articulos.Descripcion, Precio, MARCAS.Descripcion as 'Marca', CATEGORIAS.Descripcion as 'Categoria' From ARTICULOS  inner join MARCAS on ARTICULOS.IdMarca=MARCAS.Id inner join CATEGORIAS on ARTICULOS.IdCategoria=CATEGORIAS.Id where articulos.codigo= '"+codigo+" ' and ARTICULOS.Estado=1");
+                datos.ejecutarLector();
 
-                while (lector.Read())
+                while (datos.lector.Read())
                 {
                     aux = new Articulo();
-                    aux.id = lector.GetInt32(0);
-                    aux.codigo = lector.GetString(1);
-                    aux.nombre = lector.GetString(2);
-                    aux.descripcion = lector.GetString(3);
-                    aux.precio = lector.GetDecimal(4);
+                    aux.id = datos.lector.GetInt32(0);
+                    aux.codigo = datos.lector.GetString(1);
+                    aux.nombre = datos.lector.GetString(2);
+                    aux.descripcion = datos.lector.GetString(3);
+                    aux.precio = datos.lector.GetDecimal(4);
                     aux.marcaProducto = new Marca();
-                    aux.marcaProducto.nombre = lector.GetString(5);
+                    aux.marcaProducto.nombre = datos.lector.GetString(5);
                     aux.categoriaProducto = new Categoria();
-                    aux.categoriaProducto.nombre = lector.GetString(6);
+                    aux.categoriaProducto.nombre = datos.lector.GetString(6);
 
                     lista.Add(aux);
                 }
@@ -132,57 +115,40 @@ namespace Negocio
             }
             finally
             {
-                conexion.Close();
+                datos.cerrarConexion();
             }
         }
-        public void Eiminar(string codigo)
+        public void Eiminar(string cod)
         {
-            SqlCommand comando = new SqlCommand();
-            SqlConnection conexion = new SqlConnection();
-            SqlDataReader lector;
+            AccesoDatos datos = new AccesoDatos();
 
             try
             {
-                conexion.ConnectionString = "data source=LENOVO-PC\\SQLEXPRESS; initial catalog=CATALOGO_DB; integrated security=sspi";
-                comando.CommandType = System.Data.CommandType.Text;
-                comando.CommandText = " delete from ARTICULOS where codigo = '" + codigo +"'";
-                comando.Connection = conexion;
-                conexion.Open();
-                lector = comando.ExecuteReader();
+                datos.setearQuery("update articulos set estado = 0 where codigo = '"+cod+"'");
+                datos.ejecutarAccion();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.ToString());
-            }
-            finally
-            {
-                conexion.Close();
             }
         }
 
         public void Modificar(Articulo aux)
         {
-            SqlCommand comando = new SqlCommand();
-            SqlConnection conexion = new SqlConnection();
-            SqlDataReader lector;
+            AccesoDatos datos = new AccesoDatos();
 
             try
             {
-                conexion.ConnectionString = "data source=LENOVO-PC\\SQLEXPRESS; initial catalog=CATALOGO_DB; integrated security=sspi";
-                comando.CommandType = System.Data.CommandType.Text;
-                comando.CommandText = "update ARTICULOS set Codigo = @codigo where ID = @Id;update ARTICULOS set Nombre = @nombre where ID = @Id;update ARTICULOS set Descripcion = @desc where ID = @Id;update ARTICULOS set IdMarca =@marca where ID = @Id;update ARTICULOS set IdCategoria = @categoria where ID = @Id;update ARTICULOS set Precio = @precio where ID = @Id";
-                comando.Parameters.Clear();
-                comando.Parameters.AddWithValue("@Id", aux.id);
-                comando.Parameters.AddWithValue("@codigo", aux.codigo);
-                comando.Parameters.AddWithValue("@nombre", aux.nombre);
-                comando.Parameters.AddWithValue("@desc", aux.descripcion);
-                comando.Parameters.AddWithValue("@marca", aux.marcaProducto.id);
-                comando.Parameters.AddWithValue("@categoria", aux.categoriaProducto.id);
-                comando.Parameters.AddWithValue("@precio", aux.precio);
-
-                comando.Connection = conexion;
-                conexion.Open();
-                lector = comando.ExecuteReader();
+                datos.setearQuery("update ARTICULOS set Codigo = @codigo where ID = @Id;update ARTICULOS set Nombre = @nombre where ID = @Id;update ARTICULOS set Descripcion = @desc where ID = @Id;update ARTICULOS set IdMarca =@marca where ID = @Id;update ARTICULOS set IdCategoria = @categoria where ID = @Id;update ARTICULOS set Precio = @precio where ID = @Id");
+                datos.Clear();
+                datos.agregarParametro("@Id", aux.id);
+                datos.agregarParametro("@codigo", aux.codigo);
+                datos.agregarParametro("@nombre", aux.nombre);
+                datos.agregarParametro("@desc", aux.descripcion);
+                datos.agregarParametro("@marca", aux.marcaProducto.id);
+                datos.agregarParametro("@categoria", aux.categoriaProducto.id);
+                datos.agregarParametro("@precio", aux.precio);
+                datos.ejecutarAccion();
             }
             catch (Exception ex)
             {
@@ -190,11 +156,9 @@ namespace Negocio
             }
             finally
             {
-                conexion.Close();
+                datos.cerrarConexion();
             }
-
-
-        
+                         
 
             
            
